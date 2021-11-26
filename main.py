@@ -1,51 +1,30 @@
-import arcade
+def setup(self):
+    """ Set up the game and initialize the variables. """
 
-# Set constants for the screen size
-SCREEN_WIDTH = 600
-SCREEN_HEIGHT = 600
+    # Create the sprite lists
+    self.player_list = arcade.SpriteList()
+    self.coin_list = arcade.SpriteList()
 
-# Open the window. Set the window title and dimensions (width and height)
-arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Drawing Example")
+    # Score
+    self.score = 0
 
-# Set the background color to white.
-# For a list of named colors see:
-# http://arcade.academy/arcade.color.html
-# Colors can also be specified in (red, green, blue) format and
-# (red, green, blue, alpha) format.
-arcade.set_background_color(arcade.color.WHITE)
+    # Set up the player
+    # Character image from kenney.nl
+    self.player_sprite = arcade.Sprite("images/character.png", SPRITE_SCALING_PLAYER)
+    self.player_sprite.center_x = 50 # Starting position
+    self.player_sprite.center_y = 50
+    self.player_list.append(self.player_sprite)
 
-# Start the render process. This must be done before any drawing commands.
-arcade.start_render()
+    # Create the coins
+    for i in range(COIN_COUNT):
 
-# Draw the face
-x = 300
-y = 300
-radius = 200
-arcade.draw_circle_filled(x, y, radius, arcade.color.YELLOW)
+        # Create the coin instance
+        # Coin image from kenney.nl
+        coin = arcade.Sprite("images/coin_01.png", SPRITE_SCALING_COIN)
 
-# Draw the right eye
-x = 370
-y = 350
-radius = 20
-arcade.draw_circle_filled(x, y, radius, arcade.color.BLACK)
+        # Position the coin
+        coin.center_x = random.randrange(SCREEN_WIDTH)
+        coin.center_y = random.randrange(SCREEN_HEIGHT)
 
-# Draw the left eye
-x = 230
-y = 350
-radius = 20
-arcade.draw_circle_filled(x, y, radius, arcade.color.BLACK)
-
-# Draw the smile
-x = 300
-y = 280
-width = 120
-height = 100
-start_angle = 190
-end_angle = 350
-arcade.draw_arc_outline(x, y, width, height, arcade.color.BLACK, start_angle, end_angle, 10)
-
-# Finish drawing and display the result
-arcade.finish_render()
-
-# Keep the window open until the user hits the 'close' button
-arcade.run()
+        # Add the coin to the lists
+        self.coin_list.append(coin)
